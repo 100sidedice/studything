@@ -49,15 +49,12 @@ export const generateQuestionSet = generateChoiceQuestionSet;
 export const scoreSelection = scoreChoiceSelection;
 
 function makeQuestion({ casesByName, itemName, section }) {
-	const correct = casesByName[itemName][section];
+	const correct = String(casesByName[itemName][section]).trim();
+	const correctNorm = normalizeOptionText(correct);
 	const otherItemNames = Object.keys(casesByName).filter((n) => n !== itemName && hasAnswer(casesByName, n, section));
 	shuffleInPlace(otherItemNames);
 
-	const wrongChoices = otherItemNames.slice(0, 3).map((n) => ({ text: casesByName[n][section], sourceItemName: n }));
-	if (wrongChoices.length < 3) {
-		throw new Error(`Not enough wrong choices for section "${section}". Add more items with this field.`);
-	}
-
+	const wrongChoices = pickUniqueWrongChoices({ casesByName, section, otherItemNames, correctNorm, count: 3 });
 	const options = shuffleCopy([{ text: correct, sourceItemName: itemName }, ...wrongChoices]);
 	return {
 		itemName,
@@ -67,6 +64,40 @@ function makeQuestion({ casesByName, itemName, section }) {
 		options,
 		correctIndex: options.findIndex((o) => o.sourceItemName === itemName && o.text === correct),
 	};
+}
+
+function pickUniqueWrongChoices({ casesByName, section, otherItemNames, correctNorm, count }) {
+	const choices = [];
+	const usedNorm = new Set([correctNorm]);
+
+	for (const n of otherItemNames) {
+		const raw = casesByName[n]?.[section];
+		if (typeof raw !== 'string') continue;
+		const text = raw.trim();
+		if (!text) continue;
+		const norm = normalizeOptionText(text);
+		if (!norm) continue;
+		if (usedNorm.has(norm)) continue;
+		usedNorm.add(norm);
+		choices.push({ text, sourceItemName: n });
+		if (choices.length >= count) break;
+	}
+
+	if (choices.length < count) {
+		throw new Error(
+			`Not enough unique wrong choices for section "${section}". ` +
+			`Some items share the exact same answer text. Add more items or vary the text so 4 unique options exist.`
+		);
+	}
+
+	return choices;
+}
+
+function normalizeOptionText(s) {
+	return String(s)
+		.trim()
+		.toLowerCase()
+		.replace(/\s+/g, ' ');
 }
 
 function hasAnswer(casesByName, caseName, section) {
