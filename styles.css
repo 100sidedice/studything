@@ -16,6 +16,7 @@
 }
 
 *{ box-sizing:border-box; }
+[hidden]{ display:none !important; }
 html, body{ height:100%; }
 body{
 	margin:0;
@@ -227,14 +228,14 @@ body{
 	font-weight: 700;
 }
 
-.answers{
+.answers:not([hidden]){
 	margin-top: 16px;
 	display:grid;
 	grid-template-columns: repeat(2, minmax(0, 1fr));
 	gap: 12px;
 }
 
-.typing{
+.typing:not([hidden]){
 	margin-top: 16px;
 	display:flex;
 	flex-direction:column;
@@ -300,7 +301,7 @@ body{
 	text-align:left;
 	border: none;
 	border-radius: 16px;
-	padding: 14px 14px;
+	padding: 14px 14px 34px;
 	min-height: 74px;
 	cursor:pointer;
 	color: rgba(255,255,255,0.95);
@@ -322,6 +323,30 @@ body{
 	z-index:-1;
 }
 
+.answer-source{
+	position:absolute;
+	right: 10px;
+	bottom: 8px;
+	max-width: calc(100% - 20px);
+	font-size: 0.80rem;
+	line-height: 1.1;
+	font-weight: 800;
+	letter-spacing: 0.1px;
+	color: rgba(255, 255, 255, 0.88);
+	text-shadow: 0 1px 10px rgba(0,0,0,0.45);
+	opacity: 0;
+	transform: translateY(2px);
+	transition: opacity 140ms ease, transform 140ms ease;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.answer-btn.show-source .answer-source{
+	opacity: 0.95;
+	transform: translateY(0);
+}
+
 .answer-btn:hover{ transform: translateY(-2px); filter: brightness(1.05); }
 .answer-btn:active{ transform: translateY(0px); }
 
@@ -339,8 +364,23 @@ body{
 .answer-btn.c3{ background: linear-gradient(135deg, rgba(10,132,255,0.95), rgba(10,132,255,0.68)); }
 
 .answer-btn[disabled]{ cursor:not-allowed; filter: saturate(0.75) brightness(0.9); transform:none; }
-.answer-btn.correct{ outline-color: rgba(255,255,255,0.90); }
+.answer-btn.correct{ outline-color: rgba(255, 255, 255, 0.9); }
 .answer-btn.wrong{ outline-color: rgba(0,0,0,0.45); filter: grayscale(0.25) brightness(0.86); }
+
+.answer-btn.selected-correct{
+	background: linear-gradient(135deg, rgba(52,199,89,0.95), rgba(52,199,89,0.72)) !important;
+	filter: none;
+}
+
+.answer-btn.selected-wrong{
+	background: linear-gradient(135deg, rgba(255,59,48,0.95), rgba(255,59,48,0.72)) !important;
+	filter: none;
+}
+
+.answer-btn.dimmed{
+	background: linear-gradient(135deg, rgba(140,140,140,0.55), rgba(70,70,70,0.55)) !important;
+	filter: grayscale(1) saturate(0) brightness(0.85);
+}
 
 .quiz-bottom{
 	margin-top: 14px;

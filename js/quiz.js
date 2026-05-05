@@ -53,19 +53,19 @@ function makeQuestion({ casesByName, itemName, section }) {
 	const otherItemNames = Object.keys(casesByName).filter((n) => n !== itemName && hasAnswer(casesByName, n, section));
 	shuffleInPlace(otherItemNames);
 
-	const wrongChoices = otherItemNames.slice(0, 3).map((n) => casesByName[n][section]);
+	const wrongChoices = otherItemNames.slice(0, 3).map((n) => ({ text: casesByName[n][section], sourceItemName: n }));
 	if (wrongChoices.length < 3) {
 		throw new Error(`Not enough wrong choices for section "${section}". Add more items with this field.`);
 	}
 
-	const options = shuffleCopy([correct, ...wrongChoices]);
+	const options = shuffleCopy([{ text: correct, sourceItemName: itemName }, ...wrongChoices]);
 	return {
 		itemName,
 		section,
 		prompt: `Which ${section} matches this item?`,
 		correct,
 		options,
-		correctIndex: options.indexOf(correct),
+		correctIndex: options.findIndex((o) => o.sourceItemName === itemName && o.text === correct),
 	};
 }
 

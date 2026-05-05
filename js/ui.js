@@ -300,13 +300,19 @@ function renderAnswers(question) {
 		btn.type = 'button';
 		btn.className = `answer-btn ${colors[i % 4]}`;
 		btn.dataset.index = String(i);
+		btn.dataset.source = opt.sourceItemName || '';
 
 		const text = document.createElement('div');
 		text.className = 'answer-text';
-		text.textContent = opt;
+		text.textContent = opt.text;
 		btn.appendChild(text);
 
-		const len = opt.length;
+		const source = document.createElement('div');
+		source.className = 'answer-source';
+		source.textContent = opt.sourceItemName ? `— ${opt.sourceItemName}` : '';
+		btn.appendChild(source);
+
+		const len = opt.text.length;
 		if (len > 160) btn.classList.add('is-very-long');
 		else if (len > 110) btn.classList.add('is-long');
 
@@ -359,8 +365,16 @@ function lockAndRevealChoice({ selectedIndex, reason }) {
 
 	buttons.forEach((b) => {
 		const i = Number(b.dataset.index);
+		b.classList.add('show-source');
 		if (i === q.correctIndex) b.classList.add('correct');
 		else if (answered && i === selectedIndex) b.classList.add('wrong');
+		if (typeof selectedIndex === 'number') {
+			if (i !== selectedIndex) b.classList.add('dimmed');
+			else b.classList.add(correct ? 'selected-correct' : 'selected-wrong');
+		} else {
+			// timeout: dim everything, highlight correct
+			b.classList.add('dimmed');
+		}
 	});
 
 	if (reason === 'timeout') els.feedback.textContent = `Time’s up. Correct answer highlighted.`;
