@@ -1,5 +1,5 @@
 import { loadStudyData } from './data.js';
-import { generateChoiceQuestionSet, scoreChoiceSelection } from './quiz.js';
+import { generateChoiceQuestionSet, getChoiceQuestionPairs, makeChoiceQuestion, scoreChoiceSelection } from './quiz.js';
 import { generateTypingQuestionSet, isTypingCorrect, makeMaskTokens, revealNextHintIndex } from './typing.js';
 
 const els = {
@@ -46,6 +46,7 @@ const state = {
 	questions: [],
 	index: 0,
 	score: 0,
+	target: null,
 	locked: false,
 	lastSelected: null,
 	typedText: '',
@@ -82,6 +83,7 @@ function wireEvents() {
 
 	els.modeSelect?.addEventListener('change', () => {
 		state.mode = els.modeSelect.value || 'choice';
+		syncCountControlForMode();
 	});
 
 	els.startBtn.addEventListener('click', () => {
@@ -120,8 +122,8 @@ function wireEvents() {
 			return;
 		}
 
-		// Choice mode: allow 1-4 quick answers
-		if (state.mode === 'choice') {
+		// Choice modes: allow 1-4 quick answers
+		if (isChoiceMode(state.mode)) {
 			const idx = keyToIndex(e.key);
 			if (idx === null) return;
 			e.preventDefault();
@@ -152,6 +154,19 @@ function wireEvents() {
 		state.typedText = els.typingInput.value;
 		renderTypingMask(q.answer, state.revealedHintIdx, state.typedText);
 	});
+
+	syncCountControlForMode();
+}
+
+function syncCountControlForMode() {
+	if (!els.questionCount) return;
+	const isTarget = state.mode === 'target';
+	els.questionCount.disabled = isTarget;
+	els.questionCount.title = isTarget ? 'Target practice ignores question count.' : '';
+}
+
+function isChoiceMode(mode) {
+	return mode === 'choice' || mode === 'target';
 }
 
 function keyToIndex(key) {
@@ -194,16 +209,23 @@ function startQuiz(forceGroupName) {
 	const count = Number(els.questionCount.value) || 20;
 	state.timePerQuestionSec = Number(els.timePerQuestion?.value) || 0;
 	state.mode = els.modeSelect?.value || state.mode || 'choice';
+	syncCountControlForMode();
 
 	try {
 		state.groupName = groupName;
-		state.questions = buildQuestionsForMode({ mode: state.mode, group, count });
-		state.index = 0;
+		state.target = null;
+		if (state.mode === 'target') {
+			initTargetPractice({ group });
+		} else {
+			state.questions = buildQuestionsForMode({ mode: state.mode, group, count });
+			state.index = 0;
+		}
 		state.score = 0;
 		state.locked = false;
 		state.lastSelected = null;
 		state.typedText = '';
 		state.revealedHintIdx = new Set();
+		els.nextBtn.textContent = 'Next';
 		stopTimer();
 		syncTimerVisibility();
 		showScreen('quiz');
@@ -211,6 +233,51 @@ function startQuiz(forceGroupName) {
 	} catch (err) {
 		showLoadError(err);
 	}
+}
+
+function initTargetPractice({ group }) {
+	const pairs = getChoiceQuestionPairs({ casesByName: group.cases, sections: group.sections });
+	const viablePairs = [];
+	for (const p of pairs) {
+		try {
+			// Validate that this pair can produce a 4-choice question
+			makeChoiceQuestion({ casesByName: group.cases, itemName: p.itemName, section: p.section });
+			viablePairs.push(p);
+		} catch {
+			// Skip pairs that can't form 4 unique options for this section
+		}
+	}
+	if (viablePairs.length === 0) {
+		throw new Error('No valid prompts found for Target practice in this group.');
+	}
+
+	state.target = {
+		casesByName: group.cases,
+		totalPairs: viablePairs.length,
+		remainingPairs: viablePairs,
+		streakByKey: new Map(),
+	};
+
+	state.questions = [];
+	state.index = 0;
+	state.questions.push(pickNextTargetQuestion());
+}
+
+function pickNextTargetQuestion() {
+	if (!state.target) throw new Error('Target practice not initialized');
+	const remaining = state.target.remainingPairs;
+	if (remaining.length === 0) throw new Error('No remaining prompts');
+	const p = remaining[Math.floor(Math.random() * remaining.length)];
+	const q = makeChoiceQuestion({ casesByName: state.target.casesByName, itemName: p.itemName, section: p.section });
+	return {
+		...q,
+		id: state.questions.length + 1,
+		pairKey: targetPairKey(p),
+	};
+}
+
+function targetPairKey(p) {
+	return `${p.itemName}__${p.section}`;
 }
 
 function buildQuestionsForMode({ mode, group, count }) {
@@ -245,13 +312,29 @@ function render() {
 	state.lastSelected = null;
 	els.nextBtn.disabled = true;
 	els.feedback.textContent = '';
+	els.nextBtn.textContent = 'Next';
 
-	const total = state.questions.length;
-	els.progressText.textContent = `Question ${state.index + 1}/${total}`;
-	els.scoreText.textContent = `Score: ${state.score}`;
+	if (state.mode === 'target' && state.target) {
+		const totalPrompts = state.target.totalPairs;
+		const remaining = state.target.remainingPairs.length;
+		const mastered = totalPrompts - remaining;
+		const asked = state.questions.length;
 
-	const pct = Math.round(((state.index) / total) * 100);
-	els.progressFill.style.width = `${pct}%`;
+		els.progressText.textContent = `Mastered ${mastered}/${totalPrompts} • Q ${asked}`;
+		els.scoreText.textContent = `Correct: ${state.score}/${asked}`;
+
+		const pct = Math.round((mastered / Math.max(1, totalPrompts)) * 100);
+		els.progressFill.style.width = `${pct}%`;
+		els.progressFill.parentElement?.setAttribute('aria-valuenow', String(pct));
+	} else {
+		const total = state.questions.length;
+		els.progressText.textContent = `Question ${state.index + 1}/${total}`;
+		els.scoreText.textContent = `Score: ${state.score}`;
+
+		const pct = Math.round(((state.index) / total) * 100);
+		els.progressFill.style.width = `${pct}%`;
+		els.progressFill.parentElement?.setAttribute('aria-valuenow', String(pct));
+	}
 
 	state.typedText = '';
 	state.revealedHintIdx = new Set();
@@ -269,8 +352,15 @@ function renderChoice(q) {
 	els.answers.hidden = false;
 	els.typingArea.hidden = true;
 
-	els.questionMeta.textContent = q.itemName;
-	els.questionText.textContent = q.prompt;
+	if (state.mode === 'target' && state.target) {
+		const key = q.pairKey || targetPairKey({ itemName: q.itemName, section: q.section });
+		const streak = state.target.streakByKey.get(key) || 0;
+		els.questionMeta.textContent = `${q.itemName} • Streak ${streak}/2`;
+		els.questionText.textContent = q.prompt;
+	} else {
+		els.questionMeta.textContent = q.itemName;
+		els.questionText.textContent = q.prompt;
+	}
 	renderAnswers(q);
 }
 
@@ -331,6 +421,21 @@ function selectChoice(index) {
 function goNext() {
 	if (!state.locked) return;
 	stopTimer();
+	if (state.mode === 'target') {
+		if (!state.target) {
+			finish();
+			return;
+		}
+		if (state.target.remainingPairs.length === 0) {
+			finish();
+			return;
+		}
+		state.index += 1;
+		state.questions.push(pickNextTargetQuestion());
+		render();
+		return;
+	}
+
 	state.index += 1;
 	if (state.index >= state.questions.length) {
 		finish();
@@ -342,8 +447,16 @@ function goNext() {
 function finish() {
 	stopTimer();
 	showScreen('done');
-	const total = state.questions.length;
-	els.resultText.textContent = `You got ${state.score} out of ${total} correct.`;
+	if (state.mode === 'target' && state.target) {
+		const totalPrompts = state.target.totalPairs;
+		const asked = state.questions.length;
+		const correct = state.score;
+		const accuracy = asked > 0 ? Math.round((correct / asked) * 100) : 0;
+		els.resultText.textContent = `Mastered all ${totalPrompts} prompts in ${asked} questions. Accuracy: ${accuracy}%.`;
+	} else {
+		const total = state.questions.length;
+		els.resultText.textContent = `You got ${state.score} out of ${total} correct.`;
+	}
 	els.progressFill.style.width = `100%`;
 }
 
@@ -359,6 +472,29 @@ function lockAndRevealChoice({ selectedIndex, reason }) {
 	const answered = typeof selectedIndex === 'number';
 	const correct = answered ? scoreChoiceSelection(q, selectedIndex) : false;
 	if (correct) state.score += 1;
+
+	let targetExtra = '';
+	if (state.mode === 'target' && state.target) {
+		const key = q.pairKey || targetPairKey({ itemName: q.itemName, section: q.section });
+		const prev = state.target.streakByKey.get(key) || 0;
+		const next = correct ? prev + 1 : 0;
+		const clamped = Math.min(2, next);
+		state.target.streakByKey.set(key, clamped);
+
+		if (clamped >= 2) {
+			const before = state.target.remainingPairs.length;
+			state.target.remainingPairs = state.target.remainingPairs.filter((p) => targetPairKey(p) !== key);
+			const removed = state.target.remainingPairs.length !== before;
+			targetExtra = removed ? ' (Mastered — removed from pool)' : ' (Mastered)';
+			if (state.target.remainingPairs.length === 0) {
+				els.nextBtn.textContent = 'Finish';
+			}
+		} else if (correct) {
+			targetExtra = ` (Streak ${clamped}/2)`;
+		} else {
+			targetExtra = ' (Streak reset to 0/2)';
+		}
+	}
 
 	const buttons = [...els.answers.querySelectorAll('button.answer-btn')];
 	for (const b of buttons) b.disabled = true;
@@ -377,16 +513,29 @@ function lockAndRevealChoice({ selectedIndex, reason }) {
 		}
 	});
 
-	if (reason === 'timeout') els.feedback.textContent = `Time’s up. Correct answer highlighted.`;
-	else els.feedback.textContent = correct ? 'Correct!' : `Wrong. Correct answer highlighted.`;
+	if (reason === 'timeout') els.feedback.textContent = `Time’s up. Correct answer highlighted.${state.mode === 'target' ? ' (Streak reset to 0/2)' : ''}`;
+	else els.feedback.textContent = correct ? `Correct!${targetExtra}` : `Wrong. Correct answer highlighted.${targetExtra}`;
 
 	els.nextBtn.disabled = false;
 
-	const total = state.questions.length;
-	const pct = Math.round(((state.index + 1) / total) * 100);
-	els.progressFill.style.width = `${pct}%`;
-	els.progressFill.parentElement?.setAttribute('aria-valuenow', String(pct));
-	els.scoreText.textContent = `Score: ${state.score}`;
+	if (state.mode === 'target' && state.target) {
+		const totalPrompts = state.target.totalPairs;
+		const remaining = state.target.remainingPairs.length;
+		const mastered = totalPrompts - remaining;
+		const asked = state.questions.length;
+
+		const pct = Math.round((mastered / Math.max(1, totalPrompts)) * 100);
+		els.progressFill.style.width = `${pct}%`;
+		els.progressFill.parentElement?.setAttribute('aria-valuenow', String(pct));
+		els.scoreText.textContent = `Correct: ${state.score}/${asked}`;
+		els.progressText.textContent = `Mastered ${mastered}/${totalPrompts} • Q ${asked}`;
+	} else {
+		const total = state.questions.length;
+		const pct = Math.round(((state.index + 1) / total) * 100);
+		els.progressFill.style.width = `${pct}%`;
+		els.progressFill.parentElement?.setAttribute('aria-valuenow', String(pct));
+		els.scoreText.textContent = `Score: ${state.score}`;
+	}
 }
 
 function lockAndRevealTyping({ typedText, reason }) {

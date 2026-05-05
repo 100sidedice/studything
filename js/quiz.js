@@ -40,6 +40,38 @@ export function generateChoiceQuestionSet({ casesByName, sections, count }) {
 	return questions;
 }
 
+/**
+ * Returns all possible (itemName, section) pairs that have a non-empty answer.
+ * Useful for modes that operate over the full pool (e.g. mastery).
+ */
+export function getChoiceQuestionPairs({ casesByName, sections }) {
+	const caseNames = Object.keys(casesByName);
+	if (caseNames.length < 4) {
+		throw new Error('Need at least 4 items in a group to generate 4-choice questions.');
+	}
+	if (!Array.isArray(sections) || sections.length === 0) {
+		throw new Error('No sections found for this group.');
+	}
+
+	const pairs = [];
+	for (const itemName of caseNames) {
+		for (const section of sections) {
+			const val = casesByName[itemName]?.[section];
+			if (typeof val === 'string' && val.trim().length > 0) {
+				pairs.push({ itemName, section });
+			}
+		}
+	}
+	return pairs;
+}
+
+/**
+ * Builds a single 4-choice question for a specific (itemName, section) pair.
+ */
+export function makeChoiceQuestion({ casesByName, itemName, section }) {
+	return makeQuestion({ casesByName, itemName, section });
+}
+
 export function scoreChoiceSelection(question, selectedIndex) {
 	return selectedIndex === question.correctIndex;
 }
