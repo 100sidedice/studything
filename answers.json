@@ -1,0 +1,348 @@
+{
+    "Cases":{
+        "[Sections]": ["Key Principle", "Summary", "Holding"],
+        "McCuloch v Maryland":{
+            "Key Principle": "Supremacy Clause",
+            "Summary": "Confirmed the right of Congress to utilize implied powers to carry out its expressed powers. Validated the supremacy of the national government over the states by declaring that states cannot interfere with or tax the legitimate activities of the federal government.",
+            "Holding": "Established supremacy of the US constitution and federal laws over state laws."
+        },
+        "United states v Lopez":{
+            "Key Principle": "Commerce Clause",
+            "Summary": "Gun Free School Zones Act exceeded Congresses' authority to regulate interstate commerce. The Court ruled that Congress did not have the authority under the Commerce Clause to outlaw guns near schools.",
+            "Holding": "Congress may not use the Commerce Clause to make possession of a gun in a school zone a federal crime."
+        },
+        "Baker V Carr":{
+            "Key Principle": "Equal Protection Clause",
+            "Summary": "Decided that redistricting (attempts to change the way voting districts are delineated) issues present justiciable questions, thus enabling federal court to intervene in and to decide redistricting cases. Ordered state legislative districts to be as equal as possible.",
+            "Holding": "Established the principle of 'one person, one vote' and opens door to courts to reveiwing redistricting challenges."
+        },
+        "Shaw v Reno":{
+            "Key Principle": "Equal Protection Clause",
+            "Summary": "A case involving racial gerrymandering, redistricting based on race must be held to a stansaed of strict scrutiny under the equal protection clause - No racial gerrymangering. Race cannot be the sole or predominant factor in redrawing legislative boundaries. Majority-minority districts",
+            "Holding": "Legislative redistricting must be conscious of race"
+        },
+        "Marbury v Madison":{
+            "Key Principle": "Judicial Review",
+            "Summary": "Established the principle of judicial review. Strengthened the power of the judicial branch by giving the Supreme Court the authority to declare acts of Congress unconstitutional.",
+            "Holding": "The Supreme Court is allowed to nullify an act of the legislative or executive branch that violates the constitution"
+        },
+        "Engel v Vitale": {
+            "Key Principle": "1st Amendment - Establishment Clause",
+            "Summary": "Struck down state-sponsored prayer in public school. Ruled that this was an unconstitutional violation of the Establishment Clause.",
+            "Holding": "Schools cannot sponsor religious activities. No state sponsored prayer."
+        },
+        "Wisconsin v Yoder": {
+            "Key Principle": "1st Amendment - Free Exercise Clause",
+            "Summary": "Dealt with the Amish Community's desire to pull their children from public school before the age of 16 so that they could help with farm and domestic work. The Court sided with the Amish and held that the parents' fundamental right to freedom  of religion was determined to outweigh the state's interest in educating its children.",
+            "Holding": "Compelling Amish students to attend school past the 8th grade is illegal."
+        },
+        "Tinker v Des Moines": {
+            "Key Principle": "1st Amendment - Freedom of Speech",
+            "Summary": "Protected some forms of symbolic speech. Ruled that students do not \"shed their constitutional rights\" to freedom of speech or expression at the schoolhouse gate. Schools forbidding the wearing of armbands is a violation of symbolic speech.",
+            "Holding": "Public school students have the right to wear black armbands in school to protest the Vietnam War becuase it does not cause a disruption"
+        },
+        "Schenchk v United States":{
+            "Key Principle": "1st Amendment - Free Speech",
+            "Summary": "The defendant who handled out anti-draft pamphlets during World War I was not protected under the first Amendment becuase it created \"clear and present danger\" test to define conditions under which public authorities can limit free speech.",
+            "Holding": "Speech that creates a \"clear and present danger\" is not protected"
+        },
+        "New York Times v United States": {
+            "Key Principle": "1st Amendment - Freedom of Press",
+            "Summary": "Government can almost never use prior restraint. Protections for the press were established here. The ruling made it possible for newspapers to publish the then-classified Pentagon Papers without risk of government censorship or punishment. Court held that executive efforts to prevent the publication violated the 1st Amendment.",
+            "Holding": "Establishes a \"heavy presumption against prior restraint\" even in cases involving national security."
+        },
+        "McDonald v Chicago":{
+            "Key Principle": "14th Amendment due process clause, Privileges and Immunities Clause, 2nd amendment",
+            "Summary": "The Court held that the right of an individual to \"keep and bear arms\" protected by the 2nd Amendment, is incorporated by the Due Process Clause of the 14th Amendment and applies to the states. The decision cleared up the uncertainty left in wake of District of Columbia v. Heller as to the scope of gun rights in the states.",
+            "Holding": "Right to keep and bear arms for self-defence applies to the states."
+        },
+        "Gideon v Wainwright": {
+            "Key Principle": "6th Amendment -  Right to Counsel",
+            "Summary": "Ruled that the Sixth Amendment right-to-counsel provision applies to those accused of major crimes under state laws. Illustarted the process of incorporation by which the Sixth Admendment was applied to the states through the Due Process Clause of the Fourteenth Amendment.",
+            "Holding": "Guarantee of an attorney for the poor or indigent"
+        },
+        "Brown v Board of Education": {
+            "Key Principle": "14th Amendment - Equal Protection Clause",
+            "Summary": "Ruled that racially segregated schools violated the Equal Protection Clause of the Fourteenth Amendment. Reversed the principle of \"separate but equal\" established in Plessy v. Ferguson. Desegregated schools.",
+            "Holding": "Raced based segregation is illegal."
+        },
+        "Citizens United v FEC": {
+            "Key Principle": "1st Amendment - Free Speech",
+            "Summary": "Struck down the restrictions on independent expenditures as a violation of the 1st Amendment. Overturned the 2002 Bipartisan Campaign Reform Act (McCain-Feingold), which banned soft money. Led to record spending in the 2010 election cycle by cooperations and special interests.",
+            "Holding": "Political spending by corporations, associations, and labor unions is protected and cannot by limited by law; Money = Speech"
+            
+        }
+    }
+    ,
+    "Constitution (Core)":{
+        "[Sections]": ["Definition", "Key Idea", "Example"],
+        "Preamble":{
+            "Definition":"The introduction to the Constitution stating its purposes.",
+            "Key Idea":"Legitimacy comes from the people; government exists to promote general welfare, liberty, and justice.",
+            "Example":"Congress creates laws aimed to \"promote the general Welfare,\" like national public health programs."
+        },
+        "Article I (Legislative)":{
+            "Definition":"Creates Congress (House + Senate) and lists its powers.",
+            "Key Idea":"Bicameralism + enumerated powers; lawmaking starts here.",
+            "Example":"Congress passes a federal budget and taxes to fund programs."
+        },
+        "Article II (Executive)":{
+            "Definition":"Creates the presidency and executive branch; sets executive powers.",
+            "Key Idea":"The president executes laws, commands the military, and leads foreign policy.",
+            "Example":"The president negotiates a treaty and appoints cabinet members."
+        },
+        "Article III (Judicial)":{
+            "Definition":"Creates the federal judiciary, including the Supreme Court.",
+            "Key Idea":"Courts interpret laws and resolve disputes under federal law.",
+            "Example":"A federal court strikes down a state law that conflicts with federal law."
+        },
+        "Separation of Powers":{
+            "Definition":"The Constitution divides government into legislative, executive, and judicial branches.",
+            "Key Idea":"Limits concentration of power by giving each branch distinct responsibilities.",
+            "Example":"Congress writes laws, the president enforces them, and courts interpret them."
+        },
+        "Checks and Balances":{
+            "Definition":"Each branch has tools to limit the other branches.",
+            "Key Idea":"Prevents abuse and encourages compromise.",
+            "Example":"The president vetoes a bill; Congress can override with 2/3 votes."
+        },
+        "Enumerated Powers":{
+            "Definition":"Powers specifically listed for Congress in the Constitution.",
+            "Key Idea":"Federal power is limited to what is granted (plus implied powers).",
+            "Example":"Congress has the power to coin money and regulate interstate commerce."
+        },
+        "Implied Powers":{
+            "Definition":"Powers not explicitly listed but reasonably inferred from enumerated powers.",
+            "Key Idea":"Elasticity allows adaptation to new problems.",
+            "Example":"Creating federal agencies to carry out laws passed by Congress."
+        },
+        "Necessary and Proper Clause":{
+            "Definition":"Gives Congress authority to pass laws needed to carry out its enumerated powers.",
+            "Key Idea":"Source of implied powers; expands national authority.",
+            "Example":"Congress establishes a national system to collect federal taxes."
+        },
+        "Commerce Clause":{
+            "Definition":"Gives Congress power to regulate commerce with foreign nations, among states, and with tribes.",
+            "Key Idea":"Major foundation for federal regulation of the economy.",
+            "Example":"Federal rules for shipping goods across state lines."
+        },
+        "Supremacy Clause":{
+            "Definition":"The Constitution, federal laws, and treaties are the supreme law of the land.",
+            "Key Idea":"When federal and state law conflict, federal law wins.",
+            "Example":"A state cannot nullify a federal civil rights law."
+        },
+        "Federalism":{
+            "Definition":"Power is shared between national and state governments.",
+            "Key Idea":"Creates dual authority; states keep reserved powers.",
+            "Example":"States run elections, while the federal government sets national citizenship rules."
+        },
+        "10th Amendment":{
+            "Definition":"Powers not delegated to the United States are reserved to states or the people.",
+            "Key Idea":"Constitutional basis for reserved state powers.",
+            "Example":"States set most rules for education and local policing."
+        },
+        "Bill of Rights":{
+            "Definition":"The first ten amendments protecting civil liberties.",
+            "Key Idea":"Limits federal government power over individuals.",
+            "Example":"Protection against unreasonable searches and seizures."
+        },
+        "Due Process":{
+            "Definition":"Government must follow fair procedures and respect legal rights.",
+            "Key Idea":"Protects against arbitrary government action.",
+            "Example":"A person gets notice and a hearing before losing certain rights or property."
+        },
+        "Equal Protection":{
+            "Definition":"States must treat people equally under the law (14th Amendment).",
+            "Key Idea":"Used to challenge discriminatory laws and policies.",
+            "Example":"A state law that treats citizens differently based only on race is unconstitutional."
+        },
+        "14th Amendment":{
+            "Definition":"Defines citizenship and includes due process and equal protection limits on states.",
+            "Key Idea":"Key amendment for civil rights and applying rights to state action.",
+            "Example":"States must provide equal legal protections to all citizens."
+        },
+        "Selective Incorporation":{
+            "Definition":"Applying most of the Bill of Rights to the states through the 14th Amendment.",
+            "Key Idea":"Expands protections against state governments.",
+            "Example":"States must respect freedom of speech like the federal government."
+        },
+        "Amendment Process":{
+            "Definition":"The formal method to change the Constitution (Article V).",
+            "Key Idea":"Intentionally difficult: broad consensus is required.",
+            "Example":"An amendment is proposed by 2/3 of Congress and ratified by 3/4 of states."
+        },
+        "Full Faith and Credit Clause":{
+            "Definition":"States generally must respect other states’ public acts, records, and court decisions.",
+            "Key Idea":"Promotes legal continuity across states.",
+            "Example":"A valid marriage license from one state is recognized by other states."
+        },
+        "Privileges and Immunities (Article IV)":{
+            "Definition":"States cannot discriminate against citizens of other states in fundamental rights.",
+            "Key Idea":"Encourages national unity and mobility.",
+            "Example":"A state can’t charge much higher fees only to out-of-state residents for basic work licenses."
+        }
+    },
+    "AP Gov Concepts":{
+        "[Sections]": ["Definition", "Why It Matters", "Example"],
+        "Popular Sovereignty":{
+            "Definition":"The people are the ultimate source of government power.",
+            "Why It Matters":"Legitimizes elections, representation, and consent of the governed.",
+            "Example":"Voters choose leaders through elections."
+        },
+        "Rule of Law":{
+            "Definition":"Everyone, including officials, must follow the law.",
+            "Why It Matters":"Prevents arbitrary government and protects rights.",
+            "Example":"A president can be required to comply with a court order."
+        },
+        "Limited Government":{
+            "Definition":"Government power is restricted by law and the Constitution.",
+            "Why It Matters":"Protects individual liberties from government overreach.",
+            "Example":"Police need legal justification to search a home."
+        },
+        "Judicial Review":{
+            "Definition":"Courts can declare laws or government actions unconstitutional.",
+            "Why It Matters":"Allows courts to enforce constitutional limits.",
+            "Example":"A court invalidates a law that violates free speech protections."
+        },
+        "Standing":{
+            "Definition":"A requirement that a plaintiff has a real, personal stake in a case.",
+            "Why It Matters":"Limits courts to actual disputes rather than abstract policy debates.",
+            "Example":"Someone must show they were directly harmed by a policy to sue."
+        },
+        "Justiciable":{
+            "Definition":"A dispute that is appropriate for a court to decide.",
+            "Why It Matters":"Separates legal questions from political questions.",
+            "Example":"A claim about whether a law violates the Constitution can be justiciable."
+        },
+        "Interest Group":{
+            "Definition":"An organized group that seeks to influence public policy.",
+            "Why It Matters":"Shapes legislation, elections, and regulation.",
+            "Example":"A teachers’ association lobbies for education funding."
+        },
+        "Lobbying":{
+            "Definition":"Directly attempting to influence government officials’ decisions.",
+            "Why It Matters":"A key method groups use to affect policy outcomes.",
+            "Example":"Meeting with a senator’s staff to support or oppose a bill."
+        },
+        "Political Socialization":{
+            "Definition":"How people form political values and beliefs.",
+            "Why It Matters":"Explains stability and change in political attitudes.",
+            "Example":"Family and school influence party identification."
+        },
+        "Political Culture":{
+            "Definition":"Shared attitudes and values about government and politics.",
+            "Why It Matters":"Influences participation and expectations of government.",
+            "Example":"High support for free speech norms even for unpopular views."
+        },
+        "Public Opinion":{
+            "Definition":"The aggregate of people’s attitudes on issues and leaders.",
+            "Why It Matters":"Can pressure elected officials and shape campaign strategies.",
+            "Example":"Polling shows increased support for environmental regulation."
+        },
+        "Linkage Institutions":{
+            "Definition":"Organizations connecting citizens to government.",
+            "Why It Matters":"Channels participation and representation.",
+            "Example":"Political parties and the media connect voters to officials."
+        },
+        "Political Party":{
+            "Definition":"An organization that nominates candidates and seeks to win elections.",
+            "Why It Matters":"Coordinates government, shapes platforms, and organizes voters.",
+            "Example":"A party runs candidates for Congress and supports them with fundraising."
+        },
+        "Party Platform":{
+            "Definition":"A party’s formal statement of policy goals.",
+            "Why It Matters":"Signals priorities and helps voters compare parties.",
+            "Example":"A platform calls for expanded healthcare access."
+        },
+        "Political Ideology":{
+            "Definition":"A coherent set of beliefs about government and public policy.",
+            "Why It Matters":"Shapes voting behavior and policy preferences.",
+            "Example":"A libertarian emphasizes limited government and individual freedom."
+        },
+        "Pluralism":{
+            "Definition":"Theory that many groups compete and share influence.",
+            "Why It Matters":"Suggests policy is the result of bargaining among interests.",
+            "Example":"Different business, labor, and community groups all influence a bill."
+        },
+        "Elite Theory":{
+            "Definition":"Theory that a small, wealthy group holds most political power.",
+            "Why It Matters":"Explains unequal influence in policy outcomes.",
+            "Example":"Policies reflect donor priorities more than average voters’ preferences."
+        },
+        "Iron Triangle":{
+            "Definition":"Stable relationship among a congressional committee, an agency, and an interest group.",
+            "Why It Matters":"Can create narrow, self-reinforcing policy benefits.",
+            "Example":"An industry group works with regulators and committee members to shape rules."
+        },
+        "Issue Network":{
+            "Definition":"A broader, looser set of actors involved in a policy area.",
+            "Why It Matters":"Policy debates involve shifting coalitions rather than fixed alliances.",
+            "Example":"Researchers, activists, agencies, and legislators all influence climate policy."
+        },
+        "Gerrymandering":{
+            "Definition":"Drawing district lines to benefit a party or group.",
+            "Why It Matters":"Can reduce competition and distort representation.",
+            "Example":"Packing opponents into one district to create safer seats elsewhere."
+        },
+        "Incumbency Advantage":{
+            "Definition":"Benefits current officeholders have in elections.",
+            "Why It Matters":"Helps explain high reelection rates.",
+            "Example":"Incumbents get more media coverage and fundraising support."
+        },
+        "Bureaucracy":{
+            "Definition":"Government agencies and employees that implement laws.",
+            "Why It Matters":"Most policy details are carried out through administrative actions.",
+            "Example":"An agency writes regulations to enforce a new law."
+        },
+        "Congressional Oversight":{
+            "Definition":"Congress monitors agencies and the executive branch.",
+            "Why It Matters":"A key check to ensure laws are implemented as intended.",
+            "Example":"A committee holds hearings on how an agency is enforcing regulations."
+        },
+        "Filibuster":{
+            "Definition":"A Senate tactic to delay or block a vote by extending debate.",
+            "Why It Matters":"Increases the power of the minority; encourages compromise.",
+            "Example":"A bill needs 60 votes for cloture to end debate and proceed."
+        },
+        "Cloture":{
+            "Definition":"A Senate procedure to end debate on most matters.",
+            "Why It Matters":"The main way to overcome a filibuster.",
+            "Example":"The Senate votes to invoke cloture and move to final passage."
+        },
+        "Veto":{
+            "Definition":"The president rejects a bill passed by Congress.",
+            "Why It Matters":"A major executive check on the legislative branch.",
+            "Example":"A president vetoes a spending bill; Congress must revise or override."
+        },
+        "Override":{
+            "Definition":"Congress can enact a vetoed bill with a 2/3 vote in each chamber.",
+            "Why It Matters":"Prevents unilateral executive control over legislation.",
+            "Example":"Both the House and Senate reach 2/3 to pass the bill anyway."
+        },
+        "Executive Order":{
+            "Definition":"A directive from the president that manages operations of the executive branch.",
+            "Why It Matters":"Allows swift action but can be limited by courts or later presidents.",
+            "Example":"A president directs agencies to change enforcement priorities."
+        },
+        "Bicameralism":{
+            "Definition":"A legislature with two chambers (House and Senate).",
+            "Why It Matters":"Requires agreement across chambers; slows the lawmaking process.",
+            "Example":"A bill must pass both the House and the Senate in identical form."
+        },
+        "Conference Committee":{
+            "Definition":"A temporary committee that reconciles House and Senate bill differences.",
+            "Why It Matters":"Crucial step for major legislation.",
+            "Example":"Conferees negotiate a final version of a budget bill."
+        },
+        "Civil Liberties":{
+            "Definition":"Protections from government power (freedoms).",
+            "Why It Matters":"Defines limits on what government may do to individuals.",
+            "Example":"Freedom of speech limits government censorship."
+        },
+        "Civil Rights":{
+            "Definition":"Protections against discrimination and unequal treatment.",
+            "Why It Matters":"Aims to ensure equal citizenship and opportunity.",
+            "Example":"Laws prohibiting discrimination in voting or employment."
+        }
+    }
+}

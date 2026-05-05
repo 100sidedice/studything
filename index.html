@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<title>StudyThing — AP Quiz</title>
+		<link rel="stylesheet" href="styles.css" />
+	</head>
+	<body>
+		<div class="bg" aria-hidden="true"></div>
+
+		<main class="app" id="app">
+			<header class="topbar">
+				<div class="brand">
+					<div class="logo" aria-hidden="true">(:</div>
+					<div>
+						<div class="title">AP gov test practice</div>
+						<div class="subtitle">simple practice</div>
+					</div>
+				</div>
+				<div class="topbar-right" id="topbarRight"></div>
+			</header>
+
+			<section class="card" id="screenGroup" aria-label="Group selector">
+				<h1 class="h1">Pick a group</h1>
+				<p class="muted">A 20-question set will be generated from the group you choose.</p>
+
+				<div class="row">
+					<label class="label" for="groupSelect">Group</label>
+					<select id="groupSelect" class="select" disabled>
+						<option value="">Loading…</option>
+					</select>
+				</div>
+
+				<div class="row">
+					<label class="label" for="questionCount">Questions</label>
+					<select id="questionCount" class="select">
+						<option value="20" selected>20</option>
+						<option value="10">10</option>
+						<option value="30">30</option>
+					</select>
+				</div>
+
+				<div class="row">
+					<label class="label" for="modeSelect">Game mode</label>
+					<select id="modeSelect" class="select">
+						<option value="choice" selected>Multiple choice</option>
+						<option value="type">Type answer</option>
+					</select>
+				</div>
+
+				<div class="row">
+					<label class="label" for="timePerQuestion">Time per question</label>
+					<select id="timePerQuestion" class="select">
+						<option value="0">Off</option>
+						<option value="10">10s</option>
+						<option value="15">15s</option>
+						<option value="20" selected>20s</option>
+						<option value="30">30s</option>
+						<option value="45">45s</option>
+						<option value="60">60s</option>
+					</select>
+				</div>
+
+				<button class="btn primary" id="startBtn" disabled>Start</button>
+				<p class="error" id="loadError" hidden></p>
+				<p class="hint">Tip: press <span class="kbd">1</span>–<span class="kbd">4</span> to answer.</p>
+			</section>
+
+			<section class="card" id="screenQuiz" hidden aria-label="Quiz">
+				<div class="quiz-top">
+					<div class="progress">
+						<div class="progress-meta">
+							<span id="progressText">Question 1/20</span>
+							<span id="scoreText">Score: 0</span>
+						</div>
+						<div class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+							<div class="progress-fill" id="progressFill"></div>
+						</div>
+					</div>
+
+					<div class="timer" id="timer" hidden aria-label="Timer">
+						<div class="timer-label">Time</div>
+						<div class="timer-value" id="timerText">0:20</div>
+						<div class="timer-bar" aria-hidden="true">
+							<div class="timer-fill" id="timerFill"></div>
+						</div>
+					</div>
+				</div>
+
+				<div class="question">
+					<div class="question-meta" id="questionMeta"></div>
+					<div class="question-text" id="questionText"></div>
+				</div>
+
+				<div class="answers" id="answers"></div>
+
+				<div class="typing" id="typingArea" hidden>
+					<div class="typing-mask" id="typingMask" aria-label="Hinted answer mask"></div>
+					<div class="typing-row">
+						<input id="typingInput" class="input" type="text" autocomplete="off" spellcheck="false" placeholder="Type the item name…" />
+						<button class="btn" id="hintBtn" type="button" title="Reveal one character">Hint</button>
+						<button class="btn primary" id="submitBtn" type="button">Submit</button>
+					</div>
+					<p class="hint">Hint reveals one character each time.</p>
+				</div>
+
+				<div class="quiz-bottom">
+					<div class="feedback" id="feedback" aria-live="polite"></div>
+					<div class="actions">
+						<button class="btn" id="quitBtn" type="button">Quit</button>
+						<button class="btn primary" id="nextBtn" type="button" disabled>Next</button>
+					</div>
+				</div>
+			</section>
+
+			<section class="card" id="screenDone" hidden aria-label="Results">
+				<h2 class="h1">Done</h2>
+				<p class="result" id="resultText"></p>
+				<div class="actions">
+					<button class="btn" id="backBtn" type="button">Back to groups</button>
+					<button class="btn primary" id="restartBtn" type="button">Restart this group</button>
+				</div>
+			</section>
+
+			<footer class="footer">
+				<span>Loads questions from <span class="mono">answers.json</span></span>
+				<span class="dot">•</span>
+				<span class="mono" id="dataStatus">loading…</span>
+			</footer>
+		</main>
+
+		<script type="module" src="js/ui.js"></script>
+	</body>
+</html>
